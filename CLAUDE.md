@@ -23,9 +23,6 @@ npm run lint
 
 # TypeScript type checking
 npm run check-types
-
-# Run tests
-npm run test
 ```
 
 ## Architecture

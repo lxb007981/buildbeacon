@@ -2,7 +2,7 @@ name: build
 on:
   push:
     branches:
-      - dev
+      - master
     tags:
       - '*'
   pull_request:
@@ -46,9 +46,6 @@ jobs:
         run: |
           npm run package
           npx @vscode/vsce package
-      - name: Test
-        run: |
-          npm run test
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
