@@ -1,71 +1,53 @@
-# buildbeacon README
+# BuildBeacon
 
-This is the README for your extension "buildbeacon". After writing up a brief description, we recommend including the following sections.
+BuildBeacon is a VS Code extension that monitors running processes and sends HTTP POST notifications when a specified process exits. It's ideal for tracking builds, scripts, and long-running tasks inside VS Code workflows.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Process Monitoring**: Watch for a specific process by name and detect when it exits
+- **HTTP Notifications**: Send structured POST requests to a server endpoint when the monitored process completes
 
-For example if there is an image subfolder under your extension project workspace:
+## Getting Started
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. Open the BuildBeacon sidebar by clicking the beacon icon in the Activity Bar
+2. Configure your settings:
+   - **Endpoint URL**: The server URL to send POST requests to
+   - **Content**: The message or data to send in the POST body
+   - **Process Name**: The name of the process to monitor (e.g., `build.sh`, `npm`)
+3. Run your build/script in the terminal
+4. BuildBeacon will automatically detect when the process exits and send a POST request to your endpoint
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+BuildBeacon contributes the following settings:
 
-For example:
+| Setting | Description | Default |
+|---------|-------------|---------|
+| `buildbeacon.endpoint` | The endpoint URL to send POST requests to | `sample_api.com` |
+| `buildbeacon.content` | The content to send in the POST request | `task finishes` |
+| `buildbeacon.monitoredProcess` | The process name to monitor | `build.sh` |
 
-This extension contributes the following settings:
+## Development
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+```bash
+# Install dependencies
+npm install
 
-## Known Issues
+# Compile the extension (type check + lint + build)
+npm run compile
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+# Watch mode for development
+npm run watch
 
-## Release Notes
+# Production build (for publishing)
+npm run package
 
-Users appreciate release notes as you update your extension.
+# Run linter
+npm run lint
 
-### 1.0.0
+# TypeScript type checking
+npm run check-types
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+# Run tests
+npm run test
+```

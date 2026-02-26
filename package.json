@@ -4,7 +4,7 @@
   "description": "BuildBeacon detects when specified processes exit and sends structured POST requests to a server endpoint. Ideal for tracking builds, scripts, and long-running tasks inside VS Code workflows.",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.109.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
@@ -49,13 +49,7 @@
           "description": "The process name to monitor"
         }
       }
-    },
-    "commands": [
-      {
-        "command": "buildbeacon.helloWorld",
-        "title": "Hello World"
-      }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
