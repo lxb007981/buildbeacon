@@ -9,9 +9,47 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "buildbeacon-sidebar",
+          "title": "BuildBeacon",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "buildbeacon-sidebar": [
+        {
+          "type": "webview",
+          "id": "buildbeacon-panel",
+          "name": "BuildBeacon",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "BuildBeacon",
+      "properties": {
+        "buildbeacon.endpoint": {
+          "type": "string",
+          "default": "sample_api.com",
+          "description": "The endpoint URL to send POST requests to"
+        },
+        "buildbeacon.content": {
+          "type": "string",
+          "default": "task finishes",
+          "description": "The content to send in the POST request"
+        },
+        "buildbeacon.monitoredProcess": {
+          "type": "string",
+          "default": "build.sh",
+          "description": "The process name to monitor"
+        }
+      }
+    },
     "commands": [
       {
         "command": "buildbeacon.helloWorld",
@@ -44,5 +82,8 @@
     "typescript": "^5.9.3",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2"
+  },
+  "dependencies": {
+    "ps-list": "^8.1.1"
   }
 }
