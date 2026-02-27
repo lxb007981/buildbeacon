@@ -12,17 +12,9 @@ BuildBeacon is a VS Code extension that monitors running processes and sends HTT
 # Compile the extension (type check + lint + build)
 npm run compile
 
-# Watch mode for development
-npm run watch
-
 # Production build (for publishing)
 npm run package
-
-# Run linter
-npm run lint
-
-# TypeScript type checking
-npm run check-types
+npx @vscode/vsce package
 ```
 
 ## Architecture

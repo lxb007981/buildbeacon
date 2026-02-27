@@ -1,6 +1,6 @@
 # BuildBeacon
 
-BuildBeacon is a VS Code extension that monitors running processes and sends HTTP POST notifications when a specified process exits. It's ideal for tracking builds, scripts, and long-running tasks inside VS Code workflows.
+BuildBeacon is a VS Code extension that detects when specified processes exit and sends notifications.
 
 ## Features
 
@@ -24,27 +24,16 @@ BuildBeacon contributes the following settings:
 | Setting | Description | Default |
 |---------|-------------|---------|
 | `buildbeacon.endpoint` | The endpoint URL to send POST requests to | `sample_api.com` |
-| `buildbeacon.content` | The content to send in the POST request | `task finishes` |
+| `buildbeacon.content` | The content to send in the POST request | `build finishes` |
 | `buildbeacon.monitoredProcess` | The process name to monitor | `build.sh` |
 
 ## Development
 
 ```bash
-# Install dependencies
-npm install
-
 # Compile the extension (type check + lint + build)
 npm run compile
 
-# Watch mode for development
-npm run watch
-
 # Production build (for publishing)
 npm run package
-
-# Run linter
-npm run lint
-
-# TypeScript type checking
-npm run check-types
+npx @vscode/vsce package
 ```

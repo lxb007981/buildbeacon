@@ -7,21 +7,32 @@ import { promisify } from 'util';
 const execAsync = promisify(exec);
 
 let scanInterval: NodeJS.Timeout | null = null;
-let webviewPanel: vscode.WebviewPanel | null = null;
 
-interface ProcessInfo {
-	name: string;
-	pid: number;
-}
-
-async function getRunningProcesses(): Promise<ProcessInfo[]> {
+async function hasTargetProcess(targetProcess: string): Promise<boolean> {
 	try {
-		const { default: psList } = await import('ps-list');
-		const processes = await psList();
-		return processes.map(p => ({ name: p.name, pid: p.pid }));
+		const { stdout } = await execAsync('ps aux');
+		const lines = stdout.split('\n');
+
+		// Skip header line (first line)
+		// ps aux format: USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND
+		// The COMMAND column is the last one and contains the full command line
+		for (let i = 1; i < lines.length; i++) {
+			const line = lines[i].trim();
+			if (line) {
+				// Split by whitespace and get the command (last column)
+				const parts = line.split(/\s+/);
+				const command = parts.slice(10).join(' ').toLowerCase();
+
+				// Check if targetProcess appears anywhere in the command
+				if (command.includes(targetProcess)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	} catch (error) {
 		console.error('Error getting process list:', error);
-		return [];
+		return false;
 	}
 }
 
@@ -179,7 +190,7 @@ export function activate(context: vscode.ExtensionContext) {
 					// Get configuration values
 					const config = vscode.workspace.getConfiguration('buildbeacon');
 					const endpoint = config.get('endpoint', 'sample_api.com');
-					const content = config.get('content', 'task finishes');
+					const content = config.get('content', 'build finish');
 					const monitoredProcess = config.get('monitoredProcess', 'build.sh');
 
 					webviewView.webview.postMessage({
@@ -190,11 +201,11 @@ export function activate(context: vscode.ExtensionContext) {
 
 					// Start scanning
 					scanInterval = setInterval(async () => {
-						const processes = await getRunningProcesses();
-						const processNames = processes.map(p => p.name.toLowerCase());
 						const targetProcess = monitoredProcess.toLowerCase();
+						// Check if targetProcess appears anywhere in the full command line
+						const hasProcess = await hasTargetProcess(targetProcess);
 
-						if (!processNames.includes(targetProcess)) {
+						if (!hasProcess) {
 							// Process not found, stop scanning and send POST request
 							if (scanInterval) {
 								clearInterval(scanInterval);
@@ -202,10 +213,9 @@ export function activate(context: vscode.ExtensionContext) {
 							}
 
 							const postData = {
-								user_token: userToken,
-								user_uid: userUid,
+								auth: userToken,
+								receiver: userUid,
 								content: content,
-								monitored_process: monitoredProcess
 							};
 
 							webviewView.webview.postMessage({
