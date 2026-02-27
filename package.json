@@ -9,6 +9,7 @@
     "type": "git",
     "url": "https://github.com/lxb007981/buildbeacon"
   },
+  "icon": "media/extension-icon.png",
   "engines": {
     "vscode": "^1.86.0"
   },

@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 16 14"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Lighthouse Body & Ground -->
+  <path d="M8 22l2-12 M16 22l-2-12 M5 22h14" />
+  <!-- Gallery Deck & Lantern Room -->
+  <path d="M9 10h6 M10 10V6h4v4" />
+  <!-- Dome Roof -->
+  <path d="M10 6c0-2.5 4-2.5 4 0" />
+  <!-- Radiating Light Rays -->
+  <path d="M15 7l4-2 M15 9l4 2 M9 7l-4-2 M9 9l-4 2" />
+  <!-- Arched Door -->
+  <path d="M11 22v-3a1 1 0 0 1 2 0v3" />
 </svg>
